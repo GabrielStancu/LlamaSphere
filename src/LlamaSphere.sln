@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LlamaSphere.Project", "Services\LlamaSphere.Project\LlamaSphere.Project.csproj", "{5D91ADF9-5C13-4F3B-852C-28F5A3E321FC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LlamaSphere.User", "Services\LlamaSphere.User\LlamaSphere.User.csproj", "{D6791A88-BD40-4D78-96D2-747A29A81370}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LlamaSphere.AppUser", "Services\LlamaSphere.User\LlamaSphere.AppUser.csproj", "{D6791A88-BD40-4D78-96D2-747A29A81370}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{77285AC0-E338-4DB4-981D-28E73A271FD5}"
 EndProject
