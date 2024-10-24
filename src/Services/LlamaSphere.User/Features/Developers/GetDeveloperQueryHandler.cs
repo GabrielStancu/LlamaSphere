@@ -1,9 +1,9 @@
 ﻿using Core.CQRS;
-using LlamaSphere.User.Exceptions;
-using LlamaSphere.User.Models;
+using LlamaSphere.AppUser.Exceptions;
+using LlamaSphere.AppUser.Models;
 using Marten;
 
-namespace LlamaSphere.User.Features.Developers;
+namespace LlamaSphere.AppUser.Features.Developers;
 
 public record GetDeveloperByIdQuery(Guid Id) : IQuery<GetDeveloperByIdResult>;
 

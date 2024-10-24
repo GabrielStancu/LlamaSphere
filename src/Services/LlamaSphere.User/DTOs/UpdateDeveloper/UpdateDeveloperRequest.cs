@@ -1,4 +1,4 @@
-﻿namespace LlamaSphere.User.DTOs.UpdateDeveloper;
+﻿namespace LlamaSphere.AppUser.DTOs.UpdateDeveloper;
 
 public class UpdateDeveloperRequest
 {

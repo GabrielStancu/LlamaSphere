@@ -1,14 +1,14 @@
-﻿using LlamaSphere.User.DTOs.CreateDeveloper;
-using LlamaSphere.User.DTOs.DeleteDeveloper;
-using LlamaSphere.User.DTOs.GetDevelopers;
-using LlamaSphere.User.DTOs.UpdateDeveloper;
-using LlamaSphere.User.Features.Developers;
-using LlamaSphere.User.Models;
+﻿using LlamaSphere.AppUser.DTOs.CreateDeveloper;
+using LlamaSphere.AppUser.DTOs.DeleteDeveloper;
+using LlamaSphere.AppUser.DTOs.GetDevelopers;
+using LlamaSphere.AppUser.DTOs.UpdateDeveloper;
+using LlamaSphere.AppUser.Features.Developers;
+using LlamaSphere.AppUser.Models;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LlamaSphere.User.Controllers;
+namespace LlamaSphere.AppUser.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

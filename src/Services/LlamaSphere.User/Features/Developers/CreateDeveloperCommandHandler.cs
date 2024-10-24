@@ -1,9 +1,9 @@
 ﻿using Core.CQRS;
 using FluentValidation;
-using LlamaSphere.User.Models;
+using LlamaSphere.AppUser.Models;
 using Marten;
 
-namespace LlamaSphere.User.Features.Developers;
+namespace LlamaSphere.AppUser.Features.Developers;
 
 public record CreateDeveloperCommand(string FirstName, string LastName) : ICommand<CreateDeveloperResult>;
 

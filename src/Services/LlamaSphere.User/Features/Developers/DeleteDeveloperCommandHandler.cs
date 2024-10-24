@@ -1,8 +1,8 @@
 ﻿using Core.CQRS;
-using LlamaSphere.User.Models;
+using LlamaSphere.AppUser.Models;
 using Marten;
 
-namespace LlamaSphere.User.Features.Developers;
+namespace LlamaSphere.AppUser.Features.Developers;
 
 public record DeleteDeveloperCommand(Guid Id) : ICommand<DeleteDeveloperResult>;
 

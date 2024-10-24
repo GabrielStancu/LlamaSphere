@@ -1,4 +1,4 @@
-﻿namespace LlamaSphere.User.DTOs.GetDevelopers;
+﻿namespace LlamaSphere.AppUser.DTOs.GetDevelopers;
 
 public class GetDevelopersRequest
 {

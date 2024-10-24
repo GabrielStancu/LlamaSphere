@@ -1,6 +1,6 @@
 ﻿using Core.Exceptions;
 
-namespace LlamaSphere.User.Exceptions;
+namespace LlamaSphere.AppUser.Exceptions;
 
 public class DeveloperNotFoundException : NotFoundException
 {

@@ -1,4 +1,4 @@
-﻿namespace LlamaSphere.User.DTOs.CreateDeveloper;
+﻿namespace LlamaSphere.AppUser.DTOs.CreateDeveloper;
 
 public class CreateDeveloperRequest
 {

@@ -1,4 +1,4 @@
-﻿namespace LlamaSphere.User.Models;
+﻿namespace LlamaSphere.AppUser.Models;
 
 public abstract class User
 {

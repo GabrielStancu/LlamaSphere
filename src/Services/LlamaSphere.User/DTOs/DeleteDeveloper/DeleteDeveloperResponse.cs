@@ -1,4 +1,4 @@
-﻿namespace LlamaSphere.User.DTOs.DeleteDeveloper;
+﻿namespace LlamaSphere.AppUser.DTOs.DeleteDeveloper;
 
 public class DeleteDeveloperResponse
 {

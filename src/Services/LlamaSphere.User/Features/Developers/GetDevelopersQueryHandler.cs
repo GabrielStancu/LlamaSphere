@@ -1,9 +1,9 @@
 ﻿using Core.CQRS;
-using LlamaSphere.User.Models;
+using LlamaSphere.AppUser.Models;
 using Marten;
 using Marten.Pagination;
 
-namespace LlamaSphere.User.Features.Developers;
+namespace LlamaSphere.AppUser.Features.Developers;
 
 public record GetDevelopersQuery(int? PageNumber = 1, int? PageSize = 10) : IQuery<GetDevelopersResult>;
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace LlamaSphere.User.Controllers;
+namespace LlamaSphere.AppUser.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

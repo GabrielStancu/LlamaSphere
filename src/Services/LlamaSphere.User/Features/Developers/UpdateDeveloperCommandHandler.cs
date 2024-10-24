@@ -1,10 +1,10 @@
 ﻿using Core.CQRS;
 using FluentValidation;
-using LlamaSphere.User.Exceptions;
-using LlamaSphere.User.Models;
+using LlamaSphere.AppUser.Exceptions;
+using LlamaSphere.AppUser.Models;
 using Marten;
 
-namespace LlamaSphere.User.Features.Developers;
+namespace LlamaSphere.AppUser.Features.Developers;
 
 public record UpdateDeveloperCommand(Guid Id, string FirstName, string LastName) : ICommand<UpdateDeveloperResult>;
 
