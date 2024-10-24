@@ -1,11 +1,37 @@
-var builder = WebApplication.CreateBuilder(args);
+using Core.Behaviors;
+using Core.Exceptions.Handler;
+using FluentValidation;
+using Marten;
 
-// Add services to the container.
+var builder = WebApplication.CreateBuilder(args);
+var assembly = typeof(Program).Assembly;
+
+builder.Services.AddMediatR(config =>
+{
+    config.RegisterServicesFromAssembly(assembly);
+    config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+    config.AddOpenBehavior(typeof(LoggingBehavior<,>));
+});
+builder.Services.AddValidatorsFromAssembly(assembly);
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddMarten(options =>
+{
+    options.Connection(builder.Configuration.GetConnectionString("Database")!);
+}).UseLightweightSessions();
+
+if (builder.Environment.IsDevelopment())
+{
+    //builder.Services.InitializeMartenWith<CatalogInitialData>();
+}
+
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+builder.Services.AddHealthChecks()
+    .AddNpgSql(builder.Configuration.GetConnectionString("Database")!)
+    .AddRedis(builder.Configuration.GetConnectionString("Redis")!);
+
 
 var app = builder.Build();
 

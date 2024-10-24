@@ -1,15 +1,11 @@
 version: '3.4'
 
 services:
-  llamasphere.project:
-    image: ${DOCKER_REGISTRY-}llamasphereproject
-    build:
-      context: .
-      dockerfile: LlamaSphere.ProjectsService/Dockerfile
+  userdb:
+    image: postgres
+  projectdb:
+    image: postgres
 
-  llamasphere.user:
-    image: ${DOCKER_REGISTRY-}llamasphereuser
-    build:
-      context: .
-      dockerfile: Services/LlamaSphere.DevelopersService/Dockerfile
-
+volumes:
+  postgres_user:
+  postgres_project:

@@ -1,25 +1,26 @@
 version: '3.4'
 
 services:
-  llamasphere.project:
+  userdb:
+    container_name: userdb
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
-      - ASPNETCORE_HTTPS_PORTS=8081
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=UserDb
+    restart: always
     ports:
-      - "8080"
-      - "8081"
+      - "5432:5432"
     volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
-  llamasphere.user:
+      - postgres_user:/var/lib/postgresql/data
+
+  projectdb:
+    container_name: projectdb
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
-      - ASPNETCORE_HTTPS_PORTS=8081
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=UserDb
+    restart: always
     ports:
-      - "8080"
-      - "8081"
+      - "5433:5432"
     volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - postgres_project:/var/lib/postgresql/data

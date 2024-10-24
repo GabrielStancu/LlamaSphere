@@ -9,17 +9,18 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["LlamaSphere.ProjectsService/LlamaSphere.ProjectsService.csproj", "LlamaSphere.ProjectsService/"]
-RUN dotnet restore "./LlamaSphere.ProjectsService/LlamaSphere.ProjectsService.csproj"
+COPY ["Services/LlamaSphere.Project/LlamaSphere.Project.csproj", "Services/LlamaSphere.Project/"]
+COPY ["Core/Core.csproj", "Core/"]
+RUN dotnet restore "./Services/LlamaSphere.Project/LlamaSphere.Project.csproj"
 COPY . .
-WORKDIR "/src/LlamaSphere.ProjectsService"
-RUN dotnet build "./LlamaSphere.ProjectsService.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/Services/LlamaSphere.Project"
+RUN dotnet build "./LlamaSphere.Project.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./LlamaSphere.ProjectsService.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./LlamaSphere.Project.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "LlamaSphere.ProjectsService.dll"]
+ENTRYPOINT ["dotnet", "LlamaSphere.Project.dll"]
