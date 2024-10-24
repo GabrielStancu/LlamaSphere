@@ -1,7 +1,4 @@
-﻿using LlamaSphere.AppUser.DTOs.CreateDeveloper;
-using LlamaSphere.AppUser.DTOs.DeleteDeveloper;
-using LlamaSphere.AppUser.DTOs.GetDevelopers;
-using LlamaSphere.AppUser.DTOs.UpdateDeveloper;
+﻿using LlamaSphere.AppUser.DTOs.Developers;
 using LlamaSphere.AppUser.Features.Developers;
 using LlamaSphere.AppUser.Models;
 using Mapster;
@@ -25,7 +22,9 @@ public class DeveloperController : ControllerBase
     public async Task<ActionResult<Developer>> GetDeveloperById(Guid id)
     {
         var result = await _mediator.Send(new GetDeveloperByIdQuery(id));
-        return Ok(result);
+        var response = result.Adapt<GetDeveloperByIdResponse>();
+
+        return Ok(response);
     }
 
     [HttpGet]
