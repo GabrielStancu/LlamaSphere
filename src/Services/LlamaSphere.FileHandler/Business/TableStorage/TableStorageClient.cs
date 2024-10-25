@@ -29,6 +29,13 @@ public abstract class TableStorageClient<T> : ITableStorageClient<T> where T : c
         }
     }
 
+    public async Task<List<T>> GetEntitiesAsync()
+    {
+        await InitTableClientAsync();
+
+        return await TableClient.QueryAsync<T>().ToListAsync();
+    }
+
     public async Task UpsertEntityAsync(T entity)
     {
         await InitTableClientAsync();

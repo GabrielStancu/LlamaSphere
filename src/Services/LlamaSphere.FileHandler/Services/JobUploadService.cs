@@ -23,8 +23,8 @@ public class JobUploadService : IJobUploadService
     {
         var content = await ExtractFileContentAsync(file);
 
-        await UploadFileContentToTableStorageAsync(content);
         await UploadFileToBlobStorageAsync(file);
+        await UploadFileContentToTableStorageAsync(content);
     }
 
     private static async Task<string> ExtractFileContentAsync(IFormFile file)
@@ -52,10 +52,11 @@ public class JobUploadService : IJobUploadService
 
     private async Task UploadFileContentToTableStorageAsync(string content)
     {
+        var id = Guid.NewGuid().ToString();
         var jobEntity = new JobEntity
         {
-            PartitionKey = Guid.NewGuid().ToString(),
-            RowKey = Guid.NewGuid().ToString(),
+            PartitionKey = id,
+            RowKey = id,
             Content = content
         };
 

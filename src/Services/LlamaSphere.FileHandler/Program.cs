@@ -17,6 +17,8 @@ builder.Services.AddKeyedScoped(typeof(ITableStorageClient<CvEntity>), "cv", typ
 builder.Services.AddKeyedScoped(typeof(ITableStorageClient<JobEntity>), "job", typeof(JobsTableStorageClient));
 builder.Services.AddScoped<ICvUploadService, CvUploadService>();
 builder.Services.AddScoped<IJobUploadService, JobUploadService>();
+builder.Services.AddScoped<IJobMatchingCvsService, JobMatchingCvsService>();
+builder.Services.AddScoped<ICvMatchingJobsService, CvMatchingJobsService>();
 
 var app = builder.Build();
 
