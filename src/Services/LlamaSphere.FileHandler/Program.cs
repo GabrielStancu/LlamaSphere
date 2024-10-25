@@ -1,6 +1,7 @@
 using LlamaSphere.API.Business.TableStorage;
 using LlamaSphere.API.Configuration;
 using LlamaSphere.API.Entities;
+using LlamaSphere.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.Configure<TableStorageConfiguration>(builder.Configuration.GetS
 builder.Services.Configure<BlobStorageConfiguration>(builder.Configuration.GetSection("FileBlobStorage"));
 builder.Services.AddKeyedScoped(typeof(ITableStorageClient<CvEntity>), "cv", typeof(CvsTableStorageClient));
 builder.Services.AddKeyedScoped(typeof(ITableStorageClient<JobEntity>), "job", typeof(JobsTableStorageClient));
+builder.Services.AddScoped<ICvUploadService, CvUploadService>();
+builder.Services.AddScoped<IJobUploadService, JobUploadService>();
 
 var app = builder.Build();
 
