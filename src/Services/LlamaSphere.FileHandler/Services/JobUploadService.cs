@@ -22,9 +22,8 @@ public class JobUploadService : IJobUploadService
     public async Task UploadFileAsync(IFormFile file)
     {
         var content = await ExtractFileContentAsync(file);
-
-        await UploadFileToBlobStorageAsync(file);
-        await UploadFileContentToTableStorageAsync(content);
+        var id = await UploadFileContentToTableStorageAsync(content);
+        await UploadFileToBlobStorageAsync(file, id);
     }
 
     private static async Task<string> ExtractFileContentAsync(IFormFile file)
@@ -50,7 +49,7 @@ public class JobUploadService : IJobUploadService
         return content;
     }
 
-    private async Task UploadFileContentToTableStorageAsync(string content)
+    private async Task<string> UploadFileContentToTableStorageAsync(string content)
     {
         var id = Guid.NewGuid().ToString();
         var jobEntity = new JobEntity
@@ -61,9 +60,11 @@ public class JobUploadService : IJobUploadService
         };
 
         await _tableStorageClient.UpsertEntityAsync(jobEntity);
+
+        return id;
     }
 
-    private async Task UploadFileToBlobStorageAsync(IFormFile file)
+    private async Task UploadFileToBlobStorageAsync(IFormFile file, string id)
     {
         var blobClient = new BlobContainerClient(_blobStorageConfiguration.ConnectionString, _blobStorageConfiguration.JobsContainerName);
 
@@ -71,6 +72,6 @@ public class JobUploadService : IJobUploadService
         await file.CopyToAsync(stream);
         stream.Position = 0;
 
-        await blobClient.UploadBlobAsync(file.FileName, stream);
+        await blobClient.UploadBlobAsync($"{id}_{file.FileName}", stream);
     }
 }

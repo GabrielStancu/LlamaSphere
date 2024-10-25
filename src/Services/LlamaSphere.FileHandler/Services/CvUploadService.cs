@@ -21,9 +21,8 @@ public class CvUploadService : ICvUploadService
     public async Task UploadFileAsync(IFormFile file)
     {
         var content = await ExtractFileContentAsync(file);
-
-        await UploadFileToBlobStorageAsync(file);
-        await UploadFileContentToTableStorageAsync(content);
+        var id = await UploadFileContentToTableStorageAsync(content);
+        await UploadFileToBlobStorageAsync(file, id);
     }
 
     private static async Task<string> ExtractFileContentAsync(IFormFile file)
@@ -49,7 +48,7 @@ public class CvUploadService : ICvUploadService
         return content;
     }
 
-    private async Task UploadFileContentToTableStorageAsync(string content)
+    private async Task<string> UploadFileContentToTableStorageAsync(string content)
     {
         var id = Guid.NewGuid().ToString();
         var cvEntity = new CvEntity
@@ -58,10 +57,13 @@ public class CvUploadService : ICvUploadService
             RowKey = id,
             Content = content
         };
+
         await _tableStorageClient.UpsertEntityAsync(cvEntity);
+
+        return id;
     }
 
-    private async Task UploadFileToBlobStorageAsync(IFormFile file)
+    private async Task UploadFileToBlobStorageAsync(IFormFile file, string id)
     {
         var blobClient = new BlobContainerClient(_blobStorageConfiguration.ConnectionString, _blobStorageConfiguration.CvsContainerName);
 
@@ -69,6 +71,6 @@ public class CvUploadService : ICvUploadService
         await file.CopyToAsync(stream);
         stream.Position = 0;
 
-        await blobClient.UploadBlobAsync(file.FileName, stream);
+        await blobClient.UploadBlobAsync($"{id}_{file.FileName}", stream);
     }
 }
