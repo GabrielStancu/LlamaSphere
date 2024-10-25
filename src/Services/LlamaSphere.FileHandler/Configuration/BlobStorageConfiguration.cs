@@ -1,4 +1,4 @@
-﻿namespace LlamaSphere.FileHandler.Configuration;
+﻿namespace LlamaSphere.API.Configuration;
 
 public class BlobStorageConfiguration
 {

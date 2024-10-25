@@ -1,6 +1,6 @@
-using LlamaSphere.FileHandler.Business.TableStorage;
-using LlamaSphere.FileHandler.Configuration;
-using LlamaSphere.FileHandler.Entities;
+using LlamaSphere.API.Business.TableStorage;
+using LlamaSphere.API.Configuration;
+using LlamaSphere.API.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 

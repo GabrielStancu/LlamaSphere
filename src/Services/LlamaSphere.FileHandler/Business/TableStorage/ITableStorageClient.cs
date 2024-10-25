@@ -1,6 +1,6 @@
 ﻿using Azure.Data.Tables;
 
-namespace LlamaSphere.FileHandler.Business.TableStorage;
+namespace LlamaSphere.API.Business.TableStorage;
 
 public interface ITableStorageClient<T> where T : class, ITableEntity
 {

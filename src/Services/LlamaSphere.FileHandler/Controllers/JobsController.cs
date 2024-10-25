@@ -1,13 +1,13 @@
 ﻿using Azure.Storage.Blobs;
 using DocumentFormat.OpenXml.Packaging;
-using LlamaSphere.FileHandler.Business.TableStorage;
-using LlamaSphere.FileHandler.Configuration;
-using LlamaSphere.FileHandler.Entities;
+using LlamaSphere.API.Business.TableStorage;
+using LlamaSphere.API.Configuration;
+using LlamaSphere.API.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace LlamaSphere.FileHandler.Controllers;
+namespace LlamaSphere.API.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class JobsController : ControllerBase

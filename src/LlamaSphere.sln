@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LlamaSphere.AppUser", "Serv
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{77285AC0-E338-4DB4-981D-28E73A271FD5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LlamaSphere.FileHandler", "Services\LlamaSphere.FileHandler\LlamaSphere.FileHandler.csproj", "{24C5723F-676C-4235-9E6A-841C80568FF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LlamaSphere.API", "Services\LlamaSphere.FileHandler\LlamaSphere.API.csproj", "{24C5723F-676C-4235-9E6A-841C80568FF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

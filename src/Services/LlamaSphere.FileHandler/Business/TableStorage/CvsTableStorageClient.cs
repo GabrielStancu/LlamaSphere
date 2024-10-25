@@ -1,9 +1,9 @@
 ﻿using Azure.Data.Tables;
-using LlamaSphere.FileHandler.Configuration;
-using LlamaSphere.FileHandler.Entities;
+using LlamaSphere.API.Configuration;
+using LlamaSphere.API.Entities;
 using Microsoft.Extensions.Options;
 
-namespace LlamaSphere.FileHandler.Business.TableStorage;
+namespace LlamaSphere.API.Business.TableStorage;
 
 public class CvsTableStorageClient : TableStorageClient<CvEntity>
 {

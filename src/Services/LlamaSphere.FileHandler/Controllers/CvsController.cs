@@ -1,12 +1,12 @@
 ﻿using Azure.Storage.Blobs;
 using DocumentFormat.OpenXml.Packaging;
-using LlamaSphere.FileHandler.Business.TableStorage;
-using LlamaSphere.FileHandler.Configuration;
-using LlamaSphere.FileHandler.Entities;
+using LlamaSphere.API.Business.TableStorage;
+using LlamaSphere.API.Configuration;
+using LlamaSphere.API.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace LlamaSphere.FileHandler.Controllers;
+namespace LlamaSphere.API.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class CvsController : ControllerBase
@@ -70,7 +70,7 @@ public class CvsController : ControllerBase
     private async Task UploadFileToBlobStorageAsync(IFormFile file)
     {
         var blobClient = new BlobContainerClient(_blobStorageConfiguration.ConnectionString, _blobStorageConfiguration.CvsContainerName);
-        
+
         using var stream = new MemoryStream();
         await file.CopyToAsync(stream);
         stream.Position = 0;

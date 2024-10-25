@@ -1,7 +1,7 @@
 ﻿using Azure;
 using Azure.Data.Tables;
 
-namespace LlamaSphere.FileHandler.Entities;
+namespace LlamaSphere.API.Entities;
 
 public class CvEntity : ITableEntity
 {
