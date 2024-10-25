@@ -1,9 +1,0 @@
-{
-  "profiles": {
-    "FileHandler": {
-      "commandName": "Project",
-      "commandLineArgs": "--port 7047",
-      "launchBrowser": false
-    }
-  }
-}
