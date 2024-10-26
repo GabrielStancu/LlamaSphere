@@ -53,7 +53,7 @@ namespace FileHandler
         {
             using var wordDoc = WordprocessingDocument.Open(stream, false);
             var body = wordDoc.MainDocumentPart?.Document.Body;
-            var content = body?.InnerText ?? string.Empty;
+            var content = body?.InnerText.Replace("\"", "'") ?? string.Empty;
 
             return content;
         }

@@ -30,4 +30,10 @@ public class ReasoningResponse
 
     [JsonPropertyName("tehnical_reasoning")]
     public string TechnicalReasoning { get; set; }
+
+    [JsonPropertyName("candidate_name")]
+    public string CandidateName { get; set; }
+
+    [JsonPropertyName("job_name")]
+    public string JobName { get; set; }
 }
