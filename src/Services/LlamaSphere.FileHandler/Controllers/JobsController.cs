@@ -21,13 +21,16 @@ public class JobsController : ControllerBase
     }
 
     [HttpPost("upload")]
-    public async Task<IActionResult> UploadFile(IFormFile file)
+    public async Task<ActionResult<JobUploadedResponse>> UploadFile(IFormFile file)
     {
         try
         {
             var id = await _jobUploadService.UploadFileAsync(file);
 
-            return Ok(id);
+            return Ok(new JobUploadedResponse
+            {
+                Id = id
+            });
         }
         catch (Exception ex)
         {

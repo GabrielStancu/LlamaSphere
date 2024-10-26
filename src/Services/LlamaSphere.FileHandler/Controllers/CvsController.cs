@@ -21,12 +21,15 @@ public class CvsController : ControllerBase
     }
 
     [HttpPost("upload")]
-    public async Task<IActionResult> UploadFile(IFormFile file)
+    public async Task<ActionResult<CvUploadedResponse>> UploadFile(IFormFile file)
     {
         try
         {
             var id = await _cvUploadService.UploadFileAsync(file);
-            return Ok(id);
+            return Ok(new CvUploadedResponse
+            {
+                Id = id
+            });
         }
         catch (Exception ex)
         {
