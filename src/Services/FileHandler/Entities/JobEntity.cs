@@ -1,7 +1,7 @@
 ﻿using Azure;
 using Azure.Data.Tables;
 
-namespace LlamaSphere.API.Entities;
+namespace FileHandler.Entities;
 
 public class JobEntity : ITableEntity
 {

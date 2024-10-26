@@ -2,4 +2,5 @@
 
 public class Developer : User
 {
+    public string ProjectId { get; set; }
 }

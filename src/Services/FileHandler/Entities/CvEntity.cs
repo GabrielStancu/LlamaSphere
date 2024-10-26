@@ -1,9 +1,9 @@
 ﻿using Azure;
 using Azure.Data.Tables;
 
-namespace LlamaSphere.API.Entities;
+namespace FileHandler.Entities;
 
-public class JobEntity : ITableEntity
+public class CvEntity : ITableEntity
 {
     public string Content { get; set; }
     public string JsonContent { get; set; }

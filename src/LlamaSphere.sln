@@ -17,6 +17,8 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LlamaSphere.API", "Services\LlamaSphere.FileHandler\LlamaSphere.API.csproj", "{24C5723F-676C-4235-9E6A-841C80568FF2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileHandler", "Services\FileHandler\FileHandler.csproj", "{DF7982CF-8CB8-45D7-9289-93441793EE60}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{24C5723F-676C-4235-9E6A-841C80568FF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24C5723F-676C-4235-9E6A-841C80568FF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24C5723F-676C-4235-9E6A-841C80568FF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF7982CF-8CB8-45D7-9289-93441793EE60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF7982CF-8CB8-45D7-9289-93441793EE60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF7982CF-8CB8-45D7-9289-93441793EE60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF7982CF-8CB8-45D7-9289-93441793EE60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,6 +58,7 @@ Global
 		{5D91ADF9-5C13-4F3B-852C-28F5A3E321FC} = {1B8A9758-A072-4791-97BF-F48CD6ADE269}
 		{D6791A88-BD40-4D78-96D2-747A29A81370} = {1B8A9758-A072-4791-97BF-F48CD6ADE269}
 		{24C5723F-676C-4235-9E6A-841C80568FF2} = {1B8A9758-A072-4791-97BF-F48CD6ADE269}
+		{DF7982CF-8CB8-45D7-9289-93441793EE60} = {1B8A9758-A072-4791-97BF-F48CD6ADE269}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2FD3F81B-A789-4436-9EC6-9D51D08232C9}
