@@ -4,5 +4,5 @@ namespace LlamaSphere.API.Services;
 
 public interface IJobMatchingCvsService
 {
-    Task<JobMatchingCvs> GetMatchingCvsForJobAsync(Guid projectId);
+    Task<List<ReasoningResponse>> GetMatchingCvsForJobAsync(FindDevMatches findDevMatches);
 }

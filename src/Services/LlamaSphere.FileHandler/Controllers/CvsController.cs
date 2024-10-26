@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+﻿using LlamaSphere.API.DTOs;
 using LlamaSphere.API.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,14 +37,11 @@ public class CvsController : ControllerBase
         }
     }
 
-    [HttpGet("{jobId:guid}")]
-    public async Task<ActionResult> GetCvsForProject(Guid jobId)
+    [HttpPost]
+    public async Task<ActionResult> GetCvsForProject(FindDevMatches findDevMatches)
     {
-        var jobMatchingCvs = await _jobMatchingCvsService.GetMatchingCvsForJobAsync(jobId);
-        var jsonRequest = JsonSerializer.Serialize(jobMatchingCvs);
+        var reasoningResponse = await _jobMatchingCvsService.GetMatchingCvsForJobAsync(findDevMatches);
 
-        // call gpt layer with json object, return the result to the frontend
-
-        return Ok(jobMatchingCvs);
+        return Ok(reasoningResponse);
     }
 }
