@@ -30,10 +30,19 @@ public class JobMatchingCvsService : IJobMatchingCvsService
         {
             var reasoningRequest = new ReasoningRequest
             {
-                StructuredCv = JsonSerializer.Deserialize<StructuredCv>(job.JsonContent),
-                StructuredJob = JsonSerializer.Deserialize<StructuredJob>(matchingCv.JsonContent),
-                Weights = findDevMatches.Keywords
+                StructuredJob = JsonSerializer.Deserialize<ParsedJob>(job.JsonContent).StructuredJob,
+                StructuredCv = JsonSerializer.Deserialize<ParsedCv>(matchingCv.JsonContent).StructuredCv
             };
+
+            reasoningRequest.StructuredJob.HrRequirements = new List<HrRequirement>();
+            foreach (var hrRequirement in findDevMatches.Keywords)
+            {
+                reasoningRequest.StructuredJob.HrRequirements.Add(new HrRequirement
+                {
+                    Skill = hrRequirement.Key,
+                    Weight = hrRequirement.Value
+                });
+            }
 
             var response = await _httpClient.PostAsJsonAsync("match", reasoningRequest);
             var responseContent = await response.Content.ReadAsStringAsync();
