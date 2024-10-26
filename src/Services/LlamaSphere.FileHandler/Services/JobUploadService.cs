@@ -19,11 +19,13 @@ public class JobUploadService : IJobUploadService
         _blobStorageConfiguration = blobStorageConfiguration.Value;
     }
 
-    public async Task UploadFileAsync(IFormFile file)
+    public async Task<string> UploadFileAsync(IFormFile file)
     {
         var content = await ExtractFileContentAsync(file);
         var id = await UploadFileContentToTableStorageAsync(content);
         await UploadFileToBlobStorageAsync(file, id);
+
+        return id;
     }
 
     private static async Task<string> ExtractFileContentAsync(IFormFile file)

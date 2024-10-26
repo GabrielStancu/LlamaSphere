@@ -2,5 +2,5 @@
 
 public interface ICvUploadService
 {
-    Task UploadFileAsync(IFormFile file);
+    Task<string> UploadFileAsync(IFormFile file);
 }

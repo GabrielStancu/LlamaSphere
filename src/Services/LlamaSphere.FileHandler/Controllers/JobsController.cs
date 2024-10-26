@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+﻿using LlamaSphere.API.DTOs;
 using LlamaSphere.API.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,15 +8,15 @@ namespace LlamaSphere.API.Controllers;
 public class JobsController : ControllerBase
 {
     private readonly IJobUploadService _jobUploadService;
-    private readonly ICvMatchingJobsService _cvMatchingJobsService;
+    private readonly IJobMatchingCvsService _jobMatchingCvsService;
     private readonly ILogger<JobsController> _logger;
 
     public JobsController(IJobUploadService jobUploadService,
-        ICvMatchingJobsService cvMatchingJobsService,
+        IJobMatchingCvsService jobMatchingCvsService,
         ILogger<JobsController> logger)
     {
         _jobUploadService = jobUploadService;
-        _cvMatchingJobsService = cvMatchingJobsService;
+        _jobMatchingCvsService = jobMatchingCvsService;
         _logger = logger;
     }
 
@@ -25,9 +25,9 @@ public class JobsController : ControllerBase
     {
         try
         {
-            await _jobUploadService.UploadFileAsync(file);
+            var id = await _jobUploadService.UploadFileAsync(file);
 
-            return Ok();
+            return Ok(id);
         }
         catch (Exception ex)
         {
@@ -38,13 +38,10 @@ public class JobsController : ControllerBase
         }
     }
 
-    [HttpGet("{cvId:guid}")]
-    public async Task<ActionResult> GetCvsForProject(Guid cvId)
+    [HttpPost]
+    public async Task<ActionResult> GetJobsForCv(FindJobMatches findJobMatches)
     {
-        var cvMatchingJobs = await _cvMatchingJobsService.GetMatchingCvsForJobAsync(cvId);
-        var jsonRequest = JsonSerializer.Serialize(cvMatchingJobs);
-
-        // call gpt layer with json object, return the result to the frontend
+        var cvMatchingJobs = await _jobMatchingCvsService.GetMatchingJobsForCvAsync(findJobMatches);
 
         return Ok(cvMatchingJobs);
     }

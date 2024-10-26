@@ -53,4 +53,29 @@ public class JobMatchingCvsService : IJobMatchingCvsService
 
         return responses.OrderByDescending(r => r.Score).ToList();
     }
+
+    public async Task<List<ReasoningResponse>> GetMatchingJobsForCvAsync(FindJobMatches findJobMatches)
+    {
+        var cv = await _cvTableStorageClient.GetEntityAsync(findJobMatches.CvId, findJobMatches.CvId);
+        var matchingJobs = await _jobTableStorageClient.GetEntitiesAsync();
+
+        var responses = new List<ReasoningResponse>();
+
+        foreach (var matchingJob in matchingJobs)
+        {
+            var reasoningRequest = new ReasoningRequest
+            {
+                StructuredJob = JsonSerializer.Deserialize<ParsedJob>(matchingJob.JsonContent).StructuredJob,
+                StructuredCv = JsonSerializer.Deserialize<ParsedCv>(cv.JsonContent).StructuredCv
+            };
+
+            var response = await _httpClient.PostAsJsonAsync("match", reasoningRequest);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var reasonResponse = JsonSerializer.Deserialize<ReasoningResponse>(responseContent);
+
+            responses.Add(reasonResponse);
+        }
+
+        return responses.OrderByDescending(r => r.Score).ToList();
+    }
 }

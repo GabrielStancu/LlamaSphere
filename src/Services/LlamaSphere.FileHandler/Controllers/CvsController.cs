@@ -25,8 +25,8 @@ public class CvsController : ControllerBase
     {
         try
         {
-            await _cvUploadService.UploadFileAsync(file);
-            return Ok();
+            var id = await _cvUploadService.UploadFileAsync(file);
+            return Ok(id);
         }
         catch (Exception ex)
         {
