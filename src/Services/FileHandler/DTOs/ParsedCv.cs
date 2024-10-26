@@ -4,6 +4,12 @@ namespace FileHandler.DTOs;
 
 public class ParsedCv
 {
+    [JsonPropertyName("structured_cv")]
+    public StructuredCv StructuredCv { get; set; }
+}
+
+public class StructuredCv
+{
     [JsonPropertyName("id")]
     public string Id { get; set; }
 

@@ -1,7 +1,4 @@
-using System.Text.Json;
 using DocumentFormat.OpenXml.Packaging;
-using FileHandler.DTOs;
-using FileHandler.Entities;
 using FileHandler.Models;
 using FileHandler.Services;
 using Microsoft.Azure.Functions.Worker;
@@ -36,17 +33,13 @@ namespace FileHandler
                 _logger.LogInformation("Parsing file {File}", file);
 
                 var fileContent = ExtractFileContentAsync(stream);
-                var parsedCv = new ParsedCv
-                {
-                    FirstName = "Gabriel",
-                    LastName = "Stancu",
-                    Id = file.Substring(0, file.IndexOf("_", StringComparison.Ordinal))
-                }; //await _fileParserService.ParseCvFileAsync(fileContent);
+                var id = file.Substring(0, file.IndexOf("_", StringComparison.OrdinalIgnoreCase));
+                var parsedCv = await _fileParserService.ParseCvFileAsync(fileContent, id);
 
                 await _cvTableStorageService.UpdateTableStorageContent(parsedCv);
                 var emailModel = new NewCvEmailModel
                 {
-                    Name = $"{parsedCv.FirstName} {parsedCv.LastName}"
+                    Name = $"{parsedCv.StructuredCv.FirstName} {parsedCv.StructuredCv.LastName}"
                 };
                 await _emailSender.SendEmailAlertAsync(emailModel);
             }

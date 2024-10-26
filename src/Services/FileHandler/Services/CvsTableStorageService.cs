@@ -16,12 +16,12 @@ public class CvsTableStorageService : ICvTableStorageService
 
     public async Task UpdateTableStorageContent(ParsedCv parsedCv)
     {
-        var oldEntity = await _tableStorageClient.GetEntityAsync(parsedCv.Id, parsedCv.Id);
+        var oldEntity = await _tableStorageClient.GetEntityAsync(parsedCv.StructuredCv.Id, parsedCv.StructuredCv.Id);
 
         await _tableStorageClient.UpsertEntityAsync(new CvEntity
         {
-            PartitionKey = parsedCv.Id,
-            RowKey = parsedCv.Id,
+            PartitionKey = parsedCv.StructuredCv.Id,
+            RowKey = parsedCv.StructuredCv.Id,
             Content = oldEntity.Content,
             JsonContent = JsonSerializer.Serialize(parsedCv)
         });

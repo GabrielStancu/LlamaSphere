@@ -16,12 +16,12 @@ public class JobsTableStorageService : IJobsTableStorageService
 
     public async Task UpdateTableStorageContent(ParsedJob parsedJob)
     {
-        var oldEntity = await _tableStorageClient.GetEntityAsync(parsedJob.Id, parsedJob.Id);
+        var oldEntity = await _tableStorageClient.GetEntityAsync(parsedJob.StructuredJob.Id, parsedJob.StructuredJob.Id);
 
         await _tableStorageClient.UpsertEntityAsync(new JobEntity
         {
-            PartitionKey = parsedJob.Id,
-            RowKey = parsedJob.Id,
+            PartitionKey = parsedJob.StructuredJob.Id,
+            RowKey = parsedJob.StructuredJob.Id,
             Content = oldEntity.Content,
             JsonContent = JsonSerializer.Serialize(parsedJob)
         });

@@ -34,17 +34,13 @@ namespace FileHandler
                 _logger.LogInformation("Parsing file {File}", file);
 
                 var fileContent = ExtractFileContentAsync(stream);
-                //var parsedJob = await _fileParserService.ParseJobFileAsync(fileContent);
-                var parsedJob = new ParsedJob
-                {
-                    Id = file.Substring(0, file.IndexOf("_", StringComparison.Ordinal)),
-                    Title = file.Substring(file.IndexOf("_", StringComparison.Ordinal) + 1)
-                };
+                string id = file.Substring(0, file.IndexOf("_", StringComparison.OrdinalIgnoreCase));
+                var parsedJob = await _fileParserService.ParseJobFileAsync(fileContent, id);
 
                 await _jobsTableStorageService.UpdateTableStorageContent(parsedJob);
                 await _emailSender.SendEmailAlertAsync(new NewJobEmailModel
                 {
-                    Name = parsedJob.Title
+                    Name = parsedJob.StructuredJob.JobTitle
                 });
             }
             catch (Exception ex)
