@@ -4,5 +4,4 @@ public class NewAlertEmailModel
 {
     public string AlertType { get; set; }
     public string Name { get; set; }
-    public string Recipient { get; set; }
 }

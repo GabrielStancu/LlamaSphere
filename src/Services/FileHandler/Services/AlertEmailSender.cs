@@ -34,11 +34,27 @@ public class AlertEmailSender : IEmailSender
 
     private EmailMessage FormatAlertEmail(NewAlertEmailModel emailAlert)
     {
-        var emailContent = new EmailContent($"New {emailAlert.AlertType}!")
+        string alertType = string.Empty, name = string.Empty, recipient = string.Empty;
+
+        switch (emailAlert)
         {
-            PlainText = $"A new {emailAlert.AlertType} was found! Head into the application for more details about {emailAlert.Name}"
+            case NewCvEmailModel cvEmailModel:
+                alertType = cvEmailModel.AlertType;
+                name = cvEmailModel.Name;
+                recipient = _emailConfiguration.RecruiterEmail;
+                break;
+            case NewJobEmailModel jobEmailModel:
+                alertType = jobEmailModel.AlertType;
+                name = jobEmailModel.Name;
+                recipient = _emailConfiguration.CandidateMail;
+                break;
+        }
+
+        var emailContent = new EmailContent($"New {alertType}!")
+        {
+            PlainText = $"A new {alertType} was found! Head into the application for more details about {name}"
         };
-        var emailMessage = new EmailMessage(_emailConfiguration.FromEmail, emailAlert.Recipient, emailContent);
+        var emailMessage = new EmailMessage(_emailConfiguration.FromEmail, recipient, emailContent);
 
         return emailMessage;
     }

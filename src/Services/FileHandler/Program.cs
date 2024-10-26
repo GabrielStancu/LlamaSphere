@@ -14,6 +14,7 @@ var host = new HostBuilder()
         services.ConfigureFunctionsApplicationInsights();
         services.AddConfiguration<ApiServiceConfiguration>("ParsingService");
         services.AddConfiguration<TableStorageConfiguration>("TableStorage");
+        services.AddConfiguration<EmailConfiguration>("Email");
 
         services.AddScoped<IFileParserService, FileParserService>();
         services.AddHttpClient("fileParserClient", (sp, client)=>
@@ -26,6 +27,7 @@ var host = new HostBuilder()
         services.AddKeyedScoped<ITableStorageClient<CvEntity>, CvsTableStorageClient>("cvs");
         services.AddKeyedScoped<ITableStorageClient<JobEntity>, JobsTableStorageClient>("jobs");
         services.AddScoped<ICvTableStorageService, CvsTableStorageService>();
+        services.AddScoped<IJobsTableStorageService, JobsTableStorageService>();
     })
     .Build();
 

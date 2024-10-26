@@ -1,5 +1,6 @@
 using System.Text.Json;
 using DocumentFormat.OpenXml.Packaging;
+using FileHandler.DTOs;
 using FileHandler.Entities;
 using FileHandler.Models;
 using FileHandler.Services;
@@ -35,13 +36,19 @@ namespace FileHandler
                 _logger.LogInformation("Parsing file {File}", file);
 
                 var fileContent = ExtractFileContentAsync(stream);
-                var parsedCv = await _fileParserService.ParseCvFileAsync(fileContent);
+                var parsedCv = new ParsedCv
+                {
+                    FirstName = "Gabriel",
+                    LastName = "Stancu",
+                    Id = file.Substring(0, file.IndexOf("_", StringComparison.Ordinal))
+                }; //await _fileParserService.ParseCvFileAsync(fileContent);
 
                 await _cvTableStorageService.UpdateTableStorageContent(parsedCv);
-                await _emailSender.SendEmailAlertAsync(new NewCvEmailModel
+                var emailModel = new NewCvEmailModel
                 {
                     Name = $"{parsedCv.FirstName} {parsedCv.LastName}"
-                });
+                };
+                await _emailSender.SendEmailAlertAsync(emailModel);
             }
             catch (Exception ex)
             {
