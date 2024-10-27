@@ -23,7 +23,7 @@ public class JobMatchingCvsService : IJobMatchingCvsService
     public async Task<List<ReasoningResponse>> GetMatchingCvsForJobAsync(FindDevMatches findDevMatches)
     {
         var job = await _jobTableStorageClient.GetEntityAsync(findDevMatches.ProjectId, findDevMatches.ProjectId);
-        var matchingCvs = await _cvTableStorageClient.GetEntitiesByKeywords(findDevMatches.Keywords);
+        var matchingCvs = await _cvTableStorageClient.GetEntitiesAsync();//.GetEntitiesByKeywords(findDevMatches.Keywords);
         var responses = new List<ReasoningResponse>();
 
         foreach (var matchingCv in matchingCvs)

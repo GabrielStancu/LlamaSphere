@@ -11,17 +11,17 @@ namespace FileHandler
     {
         private readonly IFileParserService _fileParserService;
         private readonly ICvTableStorageService _cvTableStorageService;
-        private readonly IEmailSender _emailSender;
+        private readonly IAlertEmailSender _alertEmailSender;
         private readonly ILogger<CvUpdate> _logger;
 
         public CvUpdate(IFileParserService fileParserService,
             ICvTableStorageService cvTableStorageService,
-            [FromKeyedServices("alert")] IEmailSender emailSender,
+            [FromKeyedServices("alert")] IAlertEmailSender alertEmailSender,
             ILogger<CvUpdate> logger)
         {
             _fileParserService = fileParserService;
             _cvTableStorageService = cvTableStorageService;
-            _emailSender = emailSender;
+            _alertEmailSender = alertEmailSender;
             _logger = logger;
         }
 
@@ -41,7 +41,7 @@ namespace FileHandler
                 {
                     Name = $"{parsedCv.StructuredCv.FirstName} {parsedCv.StructuredCv.LastName}"
                 };
-                await _emailSender.SendEmailAlertAsync(emailModel);
+                await _alertEmailSender.SendEmailAlertAsync(emailModel);
             }
             catch (Exception ex)
             {

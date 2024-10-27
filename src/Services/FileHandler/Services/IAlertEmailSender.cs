@@ -2,7 +2,7 @@
 
 namespace FileHandler.Services;
 
-public interface IEmailSender
+public interface IAlertEmailSender
 {
     Task SendEmailAlertAsync(NewAlertEmailModel emailAlert);
 }

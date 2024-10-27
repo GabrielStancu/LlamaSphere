@@ -5,13 +5,13 @@ using FileHandler.Models;
 using Microsoft.Extensions.Logging;
 
 namespace FileHandler.Services;
-public class AlertEmailSender : IEmailSender
+public class AlertAlertEmailSender : IAlertEmailSender
 {
     private readonly EmailConfiguration _emailConfiguration;
-    private readonly ILogger<AlertEmailSender> _logger;
+    private readonly ILogger<AlertAlertEmailSender> _logger;
 
-    public AlertEmailSender(EmailConfiguration emailConfiguration,
-        ILogger<AlertEmailSender> logger)
+    public AlertAlertEmailSender(EmailConfiguration emailConfiguration,
+        ILogger<AlertAlertEmailSender> logger)
     {
         _emailConfiguration = emailConfiguration;
         _logger = logger;

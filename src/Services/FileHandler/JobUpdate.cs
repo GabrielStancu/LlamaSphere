@@ -11,17 +11,17 @@ namespace FileHandler
     {
         private readonly IFileParserService _fileParserService;
         private readonly IJobsTableStorageService _jobsTableStorageService;
-        private readonly IEmailSender _emailSender;
+        private readonly IAlertEmailSender _alertEmailSender;
         private readonly ILogger<JobUpdate> _logger;
 
         public JobUpdate(IFileParserService fileParserService,
             IJobsTableStorageService jobsTableStorageService,
-            [FromKeyedServices("alert")] IEmailSender emailSender,
+            [FromKeyedServices("alert")] IAlertEmailSender alertEmailSender,
             ILogger<JobUpdate> logger)
         {
             _fileParserService = fileParserService;
             _jobsTableStorageService = jobsTableStorageService;
-            _emailSender = emailSender;
+            _alertEmailSender = alertEmailSender;
             _logger = logger;
         }
 
@@ -37,7 +37,7 @@ namespace FileHandler
                 var parsedJob = await _fileParserService.ParseJobFileAsync(fileContent, id);
 
                 await _jobsTableStorageService.UpdateTableStorageContent(parsedJob);
-                await _emailSender.SendEmailAlertAsync(new NewJobEmailModel
+                await _alertEmailSender.SendEmailAlertAsync(new NewJobEmailModel
                 {
                     Name = parsedJob.StructuredJob.JobTitle
                 });

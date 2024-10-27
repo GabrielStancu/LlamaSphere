@@ -23,7 +23,7 @@ var host = new HostBuilder()
             client.BaseAddress = new Uri(configuration.BaseUrl);
         });
 
-        services.AddKeyedScoped<IEmailSender, AlertEmailSender>("alert");
+        services.AddKeyedScoped<IAlertEmailSender, AlertAlertEmailSender>("alert");
         services.AddKeyedScoped<ITableStorageClient<CvEntity>, CvsTableStorageClient>("cvs");
         services.AddKeyedScoped<ITableStorageClient<JobEntity>, JobsTableStorageClient>("jobs");
         services.AddScoped<ICvTableStorageService, CvsTableStorageService>();

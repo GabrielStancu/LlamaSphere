@@ -23,12 +23,14 @@ builder.Services.AddCors(options =>
 builder.Services.Configure<TableStorageConfiguration>(builder.Configuration.GetSection("FileTableStorage"));
 builder.Services.Configure<BlobStorageConfiguration>(builder.Configuration.GetSection("FileBlobStorage"));
 builder.Services.Configure<ApiServiceConfiguration>(builder.Configuration.GetSection("ReasoningApi"));
+builder.Services.Configure<ResponseEmailConfiguration>(builder.Configuration.GetSection("ResponseEmail"));
 builder.Services.AddKeyedScoped(typeof(ITableStorageClient<CvEntity>), "cv", typeof(CvsTableStorageClient));
 builder.Services.AddKeyedScoped(typeof(ITableStorageClient<JobEntity>), "job", typeof(JobsTableStorageClient));
 builder.Services.AddScoped<ICvUploadService, CvUploadService>();
 builder.Services.AddScoped<IJobUploadService, JobUploadService>();
 builder.Services.AddScoped<IJobMatchingCvsService, JobMatchingCvsService>();
 builder.Services.AddScoped<ICvMatchingJobsService, CvMatchingJobsService>();
+builder.Services.AddScoped<IResponseEmailSender, ResponseEmailSender>();
 builder.Services.AddHttpClient("reasoning", (sp, client) =>
 {
     var configuration = sp.GetService<IOptions<ApiServiceConfiguration>>();
