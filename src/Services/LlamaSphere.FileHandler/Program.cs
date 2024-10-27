@@ -1,4 +1,3 @@
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using LlamaSphere.API.Business.TableStorage;
 using LlamaSphere.API.Configuration;
 using LlamaSphere.API.Entities;
@@ -6,6 +5,7 @@ using LlamaSphere.API.Services;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.UseUrls("https://0.0.0.0:7037", "http://0.0.0.0:5045");
 
 // Add services to the container.
 
@@ -47,9 +47,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseCors("AllowAll");
-app.UseAuthorization();
+//app.UseAuthorization();
 app.MapControllers();
 
 app.Run();

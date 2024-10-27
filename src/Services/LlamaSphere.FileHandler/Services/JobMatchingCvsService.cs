@@ -29,13 +29,22 @@ public class JobMatchingCvsService : IJobMatchingCvsService
     public async Task<List<ReasoningResponse>> GetMatchingCvsForJobAsync(FindDevMatches findDevMatches)
     {
         var job = await _jobTableStorageClient.GetEntityAsync(findDevMatches.ProjectId, findDevMatches.ProjectId);
+        int loops = 10;
+
+        while (string.IsNullOrWhiteSpace(job.JsonContent) && loops > 0)
+        {
+            await Task.Delay(1000);
+            job = await _jobTableStorageClient.GetEntityAsync(findDevMatches.ProjectId, findDevMatches.ProjectId);
+            loops--;
+        }
+
         var matchingCvs = await _cvTableStorageClient.GetEntitiesAsync();
         var responses = new List<ReasoningResponse>();
         var scoreMatches = new Dictionary<ReasoningRequest, decimal>();
 
         foreach (var matchingCv in matchingCvs)
         {
-            var structuredJob = JsonSerializer.Deserialize<ParsedJob>(job.JsonContent).StructuredJob;
+            var structuredJob = JsonSerializer.Deserialize<ParsedJob>(job.JsonContent!).StructuredJob;
             var structuredCv = JsonSerializer.Deserialize<ParsedCv>(matchingCv.JsonContent).StructuredCv;
             var score = ScoreMatcher.CalculateMatchScore(structuredJob, structuredCv, findDevMatches.Keywords);
             var reasoningRequest = new ReasoningRequest
@@ -76,6 +85,16 @@ public class JobMatchingCvsService : IJobMatchingCvsService
     public async Task<List<ReasoningResponse>> GetMatchingJobsForCvAsync(FindJobMatches findJobMatches)
     {
         var cv = await _cvTableStorageClient.GetEntityAsync(findJobMatches.CvId, findJobMatches.CvId);
+
+        int loops = 10;
+
+        while (string.IsNullOrWhiteSpace(cv.JsonContent) && loops > 0)
+        {
+            await Task.Delay(1000);
+            cv = await _cvTableStorageClient.GetEntityAsync(findJobMatches.CvId, findJobMatches.CvId);
+            loops--;
+        }
+
         var matchingJobs = await _jobTableStorageClient.GetEntitiesAsync();
         var responses = new List<ReasoningResponse>();
         var scoreMatches = new Dictionary<ReasoningRequest, decimal>();
@@ -83,7 +102,7 @@ public class JobMatchingCvsService : IJobMatchingCvsService
         foreach (var matchingJob in matchingJobs)
         {
             var structuredJob = JsonSerializer.Deserialize<ParsedJob>(matchingJob.JsonContent).StructuredJob;
-            var structuredCv = JsonSerializer.Deserialize<ParsedCv>(cv.JsonContent).StructuredCv;
+            var structuredCv = JsonSerializer.Deserialize<ParsedCv>(cv.JsonContent!).StructuredCv;
             var reasoningRequest = new ReasoningRequest
             {
                 StructuredJob = structuredJob,
