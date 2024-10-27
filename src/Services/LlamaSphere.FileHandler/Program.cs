@@ -24,6 +24,7 @@ builder.Services.Configure<TableStorageConfiguration>(builder.Configuration.GetS
 builder.Services.Configure<BlobStorageConfiguration>(builder.Configuration.GetSection("FileBlobStorage"));
 builder.Services.Configure<ApiServiceConfiguration>(builder.Configuration.GetSection("ReasoningApi"));
 builder.Services.Configure<ResponseEmailConfiguration>(builder.Configuration.GetSection("ResponseEmail"));
+builder.Services.Configure<MatchingPerformanceConfiguration>(builder.Configuration.GetSection("MatchingPerformance"));
 builder.Services.AddKeyedScoped(typeof(ITableStorageClient<CvEntity>), "cv", typeof(CvsTableStorageClient));
 builder.Services.AddKeyedScoped(typeof(ITableStorageClient<JobEntity>), "job", typeof(JobsTableStorageClient));
 builder.Services.AddScoped<ICvUploadService, CvUploadService>();
