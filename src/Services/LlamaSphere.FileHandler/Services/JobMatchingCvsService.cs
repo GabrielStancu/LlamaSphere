@@ -29,7 +29,7 @@ public class JobMatchingCvsService : IJobMatchingCvsService
     public async Task<List<ReasoningResponse>> GetMatchingCvsForJobAsync(FindDevMatches findDevMatches)
     {
         var job = await _jobTableStorageClient.GetEntityAsync(findDevMatches.ProjectId, findDevMatches.ProjectId);
-        int loops = 10;
+        int loops = 20;
 
         while (string.IsNullOrWhiteSpace(job.JsonContent) && loops > 0)
         {

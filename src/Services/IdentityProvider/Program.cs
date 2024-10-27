@@ -3,6 +3,8 @@ using IdentityProvider.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.WebHost.UseUrls("https://0.0.0.0:5101", "http://0.0.0.0:5100");
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -19,15 +21,9 @@ builder.Services.AddServices();
 
 var app = builder.Build();
 
-//app.UseMigration();
 app.UseSwagger();
 app.UseSwaggerUI();
-app.UseHttpsRedirection();
-app.UseRouting();
 app.UseCors("AllowOrigins");
-app.UseAuthentication();
-app.UseAuthorization();
 app.MapControllers();
-app.ApplyMigrations();
 
 app.Run();
