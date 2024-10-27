@@ -1,6 +1,7 @@
 ﻿using LlamaSphere.API.DTOs;
 using LlamaSphere.API.Services;
 using Microsoft.AspNetCore.Mvc;
+using StackExchange.Redis;
 
 namespace LlamaSphere.API.Controllers;
 [Route("api/[controller]")]
@@ -43,6 +44,23 @@ public class CvsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> GetCvsForProject(FindDevMatches findDevMatches)
     {
+        try
+        {
+            var redis = await ConnectionMultiplexer.ConnectAsync("localhost");
+            var db = redis.GetDatabase();
+            var result = db.StringGet(findDevMatches.ProjectId);
+
+            if (result.HasValue)
+            {
+                return Ok(result);
+            }
+        }
+        catch (Exception ex)
+        {
+            var errorMessage = $"Exception {ex.Message} @ {ex.StackTrace}";
+            _logger.LogError(errorMessage, ex);
+        }
+
         var reasoningResponse = await _jobMatchingCvsService.GetMatchingCvsForJobAsync(findDevMatches);
 
         return Ok(reasoningResponse);
